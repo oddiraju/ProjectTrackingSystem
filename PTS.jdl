@@ -1,0 +1,36 @@
+entity Project {
+  projectName String required,
+  projectDetails String required
+}
+
+entity Tracking {
+  teamMember String required,
+  dateStarted Instant required,
+  role String,
+  dataSources String,
+  dataVersion String,
+  extractDate Instant
+}
+
+entity Status {
+  deliverable String required,
+  status String
+
+}
+
+entity SDTM {
+  datasetName String required,
+  title String,
+  programName String,
+  programmer String,
+  completionDate Instant,
+  validationMethod String
+
+}
+
+relationship OneToOne {
+  Tracking{project(projectName)} to Project,
+  Status{project(projectName)} to Project,
+  Status{sdtm} to SDTM
+
+}

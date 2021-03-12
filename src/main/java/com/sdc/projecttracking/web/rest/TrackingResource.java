@@ -1,0 +1,119 @@
+package com.sdc.projecttracking.web.rest;
+
+import com.sdc.projecttracking.domain.Tracking;
+import com.sdc.projecttracking.repository.TrackingRepository;
+import com.sdc.projecttracking.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * REST controller for managing {@link com.sdc.projecttracking.domain.Tracking}.
+ */
+@RestController
+@RequestMapping("/api")
+@Transactional
+public class TrackingResource {
+
+    private final Logger log = LoggerFactory.getLogger(TrackingResource.class);
+
+    private static final String ENTITY_NAME = "tracking";
+
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
+    private final TrackingRepository trackingRepository;
+
+    public TrackingResource(TrackingRepository trackingRepository) {
+        this.trackingRepository = trackingRepository;
+    }
+
+    /**
+     * {@code POST  /trackings} : Create a new tracking.
+     *
+     * @param tracking the tracking to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tracking, or with status {@code 400 (Bad Request)} if the tracking has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/trackings")
+    public ResponseEntity<Tracking> createTracking(@Valid @RequestBody Tracking tracking) throws URISyntaxException {
+        log.debug("REST request to save Tracking : {}", tracking);
+        if (tracking.getId() != null) {
+            throw new BadRequestAlertException("A new tracking cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Tracking result = trackingRepository.save(tracking);
+        return ResponseEntity.created(new URI("/api/trackings/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /trackings} : Updates an existing tracking.
+     *
+     * @param tracking the tracking to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tracking,
+     * or with status {@code 400 (Bad Request)} if the tracking is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the tracking couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/trackings")
+    public ResponseEntity<Tracking> updateTracking(@Valid @RequestBody Tracking tracking) throws URISyntaxException {
+        log.debug("REST request to update Tracking : {}", tracking);
+        if (tracking.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Tracking result = trackingRepository.save(tracking);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tracking.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code GET  /trackings} : get all the trackings.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of trackings in body.
+     */
+    @GetMapping("/trackings")
+    public List<Tracking> getAllTrackings() {
+        log.debug("REST request to get all Trackings");
+        return trackingRepository.findAll();
+    }
+
+    /**
+     * {@code GET  /trackings/:id} : get the "id" tracking.
+     *
+     * @param id the id of the tracking to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tracking, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/trackings/{id}")
+    public ResponseEntity<Tracking> getTracking(@PathVariable Long id) {
+        log.debug("REST request to get Tracking : {}", id);
+        Optional<Tracking> tracking = trackingRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(tracking);
+    }
+
+    /**
+     * {@code DELETE  /trackings/:id} : delete the "id" tracking.
+     *
+     * @param id the id of the tracking to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/trackings/{id}")
+    public ResponseEntity<Void> deleteTracking(@PathVariable Long id) {
+        log.debug("REST request to delete Tracking : {}", id);
+        trackingRepository.deleteById(id);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+}

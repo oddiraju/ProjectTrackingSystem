@@ -1,0 +1,56 @@
+{
+  "name": "Tracking",
+  "fields": [
+    {
+      "fieldName": "teamMember",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dateStarted",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataSources",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataVersion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "extractDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "tracking",
+      "relationshipName": "project",
+      "otherEntityField": "projectName",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20210312231309",
+  "entityTableName": "tracking",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

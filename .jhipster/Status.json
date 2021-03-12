@@ -1,0 +1,45 @@
+{
+  "name": "Status",
+  "fields": [
+    {
+      "fieldName": "deliverable",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "status",
+      "relationshipName": "project",
+      "otherEntityField": "projectName",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "sDTM",
+      "otherEntityRelationshipName": "status",
+      "relationshipName": "sdtm",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20210312231409",
+  "entityTableName": "status",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

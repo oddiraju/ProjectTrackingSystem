@@ -1,0 +1,44 @@
+{
+  "name": "SDTM",
+  "fields": [
+    {
+      "fieldName": "datasetName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "programName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "programmer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "completionDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "validationMethod",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210312231509",
+  "entityTableName": "sdtm",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,27 @@
+{
+  "projectTrackingSystemApp": {
+    "sDTM": {
+      "home": {
+        "title": "SDTMS",
+        "createLabel": "Create a new SDTM",
+        "createOrEditLabel": "Create or edit a SDTM",
+        "notFound": "No SDTMS found"
+      },
+      "created": "A new SDTM is created with identifier {{ param }}",
+      "updated": "A SDTM is updated with identifier {{ param }}",
+      "deleted": "A SDTM is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete SDTM {{ id }}?"
+      },
+      "detail": {
+        "title": "SDTM"
+      },
+      "datasetName": "Dataset Name",
+      "title": "Title",
+      "programName": "Program Name",
+      "programmer": "Programmer",
+      "completionDate": "Completion Date",
+      "validationMethod": "Validation Method"
+    }
+  }
+}

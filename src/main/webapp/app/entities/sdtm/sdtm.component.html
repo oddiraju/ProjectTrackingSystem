@@ -1,0 +1,71 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="projectTrackingSystemApp.sDTM.home.title">SDTMS</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-sdtm" [routerLink]="['/sdtm/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="projectTrackingSystemApp.sDTM.home.createLabel">
+            Create a new SDTM
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="sDTMS?.length === 0">
+        <span jhiTranslate="projectTrackingSystemApp.sDTM.home.notFound">No sDTMS found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="sDTMS && sDTMS.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.datasetName">Dataset Name</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.title">Title</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.programName">Program Name</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.programmer">Programmer</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.completionDate">Completion Date</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.sDTM.validationMethod">Validation Method</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sDTM of sDTMS ;trackBy: trackId">
+                    <td><a [routerLink]="['/sdtm', sDTM.id, 'view']">{{ sDTM.id }}</a></td>
+                    <td>{{ sDTM.datasetName }}</td>
+                    <td>{{ sDTM.title }}</td>
+                    <td>{{ sDTM.programName }}</td>
+                    <td>{{ sDTM.programmer }}</td>
+                    <td>{{ sDTM.completionDate | date:'medium' }}</td>
+                    <td>{{ sDTM.validationMethod }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/sdtm', sDTM.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/sdtm', sDTM.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(sDTM)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

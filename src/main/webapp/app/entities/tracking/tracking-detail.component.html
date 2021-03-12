@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tracking">
+            <h2><span jhiTranslate="projectTrackingSystemApp.tracking.detail.title">Tracking</span> {{ tracking.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.teamMember">Team Member</span></dt>
+                <dd>
+                    <span>{{ tracking.teamMember }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.dateStarted">Date Started</span></dt>
+                <dd>
+                    <span>{{ tracking.dateStarted }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.role">Role</span></dt>
+                <dd>
+                    <span>{{ tracking.role }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.dataSources">Data Sources</span></dt>
+                <dd>
+                    <span>{{ tracking.dataSources }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.dataVersion">Data Version</span></dt>
+                <dd>
+                    <span>{{ tracking.dataVersion }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.extractDate">Extract Date</span></dt>
+                <dd>
+                    <span>{{ tracking.extractDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="projectTrackingSystemApp.tracking.project">Project</span></dt>
+                <dd>
+                    <div *ngIf="tracking.project">
+                        <a [routerLink]="['/project', tracking.project?.id, 'view']">{{ tracking.project?.projectName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tracking', tracking.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

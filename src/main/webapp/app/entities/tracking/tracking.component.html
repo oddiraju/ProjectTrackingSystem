@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="projectTrackingSystemApp.tracking.home.title">Trackings</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tracking" [routerLink]="['/tracking/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="projectTrackingSystemApp.tracking.home.createLabel">
+            Create a new Tracking
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trackings?.length === 0">
+        <span jhiTranslate="projectTrackingSystemApp.tracking.home.notFound">No trackings found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trackings && trackings.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.teamMember">Team Member</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.dateStarted">Date Started</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.role">Role</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.dataSources">Data Sources</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.dataVersion">Data Version</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.extractDate">Extract Date</span></th>
+                    <th scope="col" ><span jhiTranslate="projectTrackingSystemApp.tracking.project">Project</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tracking of trackings ;trackBy: trackId">
+                    <td><a [routerLink]="['/tracking', tracking.id, 'view']">{{ tracking.id }}</a></td>
+                    <td>{{ tracking.teamMember }}</td>
+                    <td>{{ tracking.dateStarted | date:'medium' }}</td>
+                    <td>{{ tracking.role }}</td>
+                    <td>{{ tracking.dataSources }}</td>
+                    <td>{{ tracking.dataVersion }}</td>
+                    <td>{{ tracking.extractDate | date:'medium' }}</td>
+                    <td>
+                        <div *ngIf="tracking.project">
+                            <a [routerLink]="['/project', tracking.project?.id, 'view']" >{{ tracking.project?.projectName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/tracking', tracking.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/tracking', tracking.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(tracking)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

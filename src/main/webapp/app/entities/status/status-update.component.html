@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-status-heading" jhiTranslate="projectTrackingSystemApp.status.home.createOrEditLabel">Create or edit a Status</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projectTrackingSystemApp.status.deliverable" for="field_deliverable">Deliverable</label>
+                    <input type="text" class="form-control" name="deliverable" id="field_deliverable"
+                           formControlName="deliverable"/>
+                    <div *ngIf="editForm.get('deliverable')!.invalid && (editForm.get('deliverable')!.dirty || editForm.get('deliverable')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('deliverable')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projectTrackingSystemApp.status.status" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                           formControlName="status"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projectTrackingSystemApp.status.project" for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" formControlName="project">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectOption.id === editForm.get('project')!.value?.id ? editForm.get('project')!.value : projectOption" *ngFor="let projectOption of projects; trackBy: trackById">{{ projectOption.projectName }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="projectTrackingSystemApp.status.sdtm" for="field_sdtm">Sdtm</label>
+                    <select class="form-control" id="field_sdtm" name="sdtm" formControlName="sdtm">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sDTMOption.id === editForm.get('sdtm')!.value?.id ? editForm.get('sdtm')!.value : sDTMOption" *ngFor="let sDTMOption of sdtms; trackBy: trackById">{{ sDTMOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
